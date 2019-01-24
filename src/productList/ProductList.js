@@ -3,9 +3,49 @@ import React from 'react';
 class ProductList extends React.Component{
   constructor(props) {
     super(props);
-    console.log(this.props.productList)
+    this.state = {
+        error: null,
+        isLoading: true,
+        data: {
+          productList:[]
+        }
+    };
   }
-  render(){
+
+  componentDidMount() {
+    setTimeout(()=>{
+      fetch("/api/productList.json")
+      .then(res => res.json())
+      .then(
+        (data) => {
+          this.setState({
+            isLoading: false,
+            data: {
+              productList: data
+            }
+          });
+          console.log(this.state);
+        },
+        (error) => {
+          this.setState({
+            isLoading: false,
+            error,
+          });
+        }
+      )
+    }, 3000)
+  }
+
+    render(){
+        if (this.state.error) {
+    return <div>Error: {this.state.error.message}</div>;
+        } else if (this.state.isLoading) {
+    return (
+        <div className="container">
+        <h2>Loading ... </h2>
+        </div>
+    )
+        } else {
     return (
         <div>
             <div className="row mb-3 mt-3">
@@ -29,7 +69,7 @@ class ProductList extends React.Component{
             </div>
 
             {
-                this.props.productList.map(
+                this.state.data.productList.map(
                     (product)=>
                     <div key={product.id} className="row border-bottom pb-2 pt-2">
                         <div className="col-md-2"><img className="img-fluid" src={product.imageUrl} /></div>
@@ -54,7 +94,8 @@ class ProductList extends React.Component{
             </div>      
         </div>
     );
-  }
+        }
+    }
 }
 
 export default ProductList;
