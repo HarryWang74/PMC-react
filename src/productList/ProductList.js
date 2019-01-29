@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 class ProductList extends React.Component{
   constructor(props) {
@@ -33,7 +34,7 @@ class ProductList extends React.Component{
           });
         }
       )
-    }, 3000)
+    }, 1000)
   }
 
     render(){
@@ -79,7 +80,7 @@ class ProductList extends React.Component{
                         <div className="col-md-1">{product.price}</div>
                         <div className="col-md-2">{product.starRating}</div>
                         <div className="col-md-3 text-right">
-                            <button type="button" className="btn btn-primary btn-sm mr-1">View</button>
+                            <Link className="btn btn-primary btn-sm mr-1" to={`/details/${product.id}`}>View</Link>
                             <button type="button" className="btn btn-primary btn-sm mr-1">Edit</button>
                             <button type="button" className="btn btn-danger btn-sm">Delete</button>
                         </div>

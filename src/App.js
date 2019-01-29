@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import './App.css';
 
 import ProductList  from './productList/ProductList';
+import ProductDetails from './productDetail/ProductDetail';
 
 class App extends Component {
   constructor(props) {
@@ -13,11 +14,14 @@ class App extends Component {
 
   render() {
       return (
-        <div className="container">
+        
           <Router>
-            <Route exact path="/" component={ProductList} />
+            <div className="container">
+              <Route exact path="/" component={ProductList} />
+              <Route path="/details/:id" component={ProductDetails} />
+            </div>
           </Router>
-        </div>
+        
       );
   }
 }
