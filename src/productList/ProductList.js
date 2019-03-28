@@ -81,7 +81,7 @@ class ProductList extends React.Component{
                                 <div className="col-md-2">{product.starRating}</div>
                                 <div className="col-md-3 text-right">
                                     <Link className="btn btn-primary btn-sm mr-1" to={`/details/${product.id}`}>View</Link>
-                                    <button type="button" className="btn btn-primary btn-sm mr-1">Edit</button>
+                                    <Link className="btn btn-primary btn-sm mr-1" to={`/edit/${product.id}`}>Edit</Link>
                                     <button type="button" className="btn btn-danger btn-sm">Delete</button>
                                 </div>
                             </div>
