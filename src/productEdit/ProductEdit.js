@@ -95,7 +95,9 @@ class ProductEdit extends React.Component{
     }
 
     onTagChange(index, event){
-        console.log(event.target.value);
+        let newData =  Object.assign({}, this.state.data);
+        newData.productDetail.tags[index] = event.target.value;
+        this.setState({data:newData});
     }
 
     render(){
