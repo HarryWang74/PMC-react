@@ -20,6 +20,7 @@ class ProductEdit extends React.Component{
         this.onPriceChange = this.onPriceChange.bind(this);
         this.onRatingChange = this.onRatingChange.bind(this);
         this.onDescriptionChange = this.onDescriptionChange.bind(this);
+        // this.onTagChange = this.onTagChange.bind(this);
     }
 
     componentDidMount() {
@@ -93,6 +94,10 @@ class ProductEdit extends React.Component{
         this.setState({data:newData});
     }
 
+    onTagChange(index, event){
+        console.log(event.target.value);
+    }
+
     render(){
         if (this.state.error) {
             return <div>Error: {this.state.error.message}</div>;
@@ -160,7 +165,7 @@ class ProductEdit extends React.Component{
                                             id="priceId" 
                                             type="number"
                                             value={this.state.data.productDetail.price} 
-                                            onChange={this.onPriceChange}  
+                                            onChange={this.onDescriptionChange}  
                                             placeholder="Price" />
                                 </div>
 
@@ -190,12 +195,20 @@ class ProductEdit extends React.Component{
 
                             <div>
                                 <label className="control-label">Tags</label>
-                                <div className="form-group row">
-                                    <div className="col-md-3">
-                                        <input className="form-control"
-                                                type="text"
-                                                placeholder="Tag" />
-                                    </div>
+                                <div className="form-group row" >
+                                {
+                                    this.state.data.productDetail.tags.map(
+                                        (tag, index)=>
+                                            <div className="col-md-3" key={index}>
+                                                <input className="form-control"
+                                                        type="text"
+                                                        value={tag}
+                                                        onChange={(evt) => this.onTagChange(index, evt)}
+                                                        placeholder="Tag" />
+                                            </div>
+                                    )
+                         
+                                }
                                 </div>
                             </div>
 
