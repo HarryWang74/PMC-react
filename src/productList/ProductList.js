@@ -14,8 +14,7 @@ class ProductList extends React.Component{
   }
 
     componentDidMount() {
-        setTimeout(()=>{
-            fetch("/api/productList.json")
+        fetch("http://localhost:8888/products")
             .then(res => res.json())
             .then(
                 (data) => {
@@ -34,7 +33,6 @@ class ProductList extends React.Component{
                     });
                 }
             )
-        }, 1000)
     }
 
     render(){
