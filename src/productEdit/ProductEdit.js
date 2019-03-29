@@ -14,6 +14,12 @@ class ProductEdit extends React.Component{
 
         this.save = this.save.bind(this);
         this.onProductImageChange = this.onProductImageChange.bind(this);
+        this.onProductNameChange = this.onProductNameChange.bind(this);
+        this.onProductCodeChange = this.onProductCodeChange.bind(this);
+        this.onReleaseDateChange = this.onReleaseDateChange.bind(this);
+        this.onPriceChange = this.onPriceChange.bind(this);
+        this.onRatingChange = this.onRatingChange.bind(this);
+        this.onDescriptionChange = this.onDescriptionChange.bind(this);
     }
 
     componentDidMount() {
@@ -51,8 +57,40 @@ class ProductEdit extends React.Component{
         this.setState({data:newData});
     }
 
-    onProductNameChange(){
+    onProductNameChange(event){
+        let newData =  Object.assign({}, this.state.data);
+        newData.productDetail.productName = event.target.value;
+        this.setState({data:newData});
+    }
 
+    onProductCodeChange(event){
+        let newData =  Object.assign({}, this.state.data);
+        newData.productDetail.productCode = event.target.value;
+        this.setState({data:newData});
+    }
+
+    onReleaseDateChange(event){
+        let newData =  Object.assign({}, this.state.data);
+        newData.productDetail.releaseDate = event.target.value;
+        this.setState({data:newData});
+    }
+
+    onPriceChange(event){
+        let newData =  Object.assign({}, this.state.data);
+        newData.productDetail.price = event.target.value;
+        this.setState({data:newData});
+    }
+
+    onRatingChange(event){
+        let newData =  Object.assign({}, this.state.data);
+        newData.productDetail.starRating = event.target.value;
+        this.setState({data:newData});
+    }
+
+    onDescriptionChange(event){
+        let newData =  Object.assign({}, this.state.data);
+        newData.productDetail.description = event.target.value;
+        this.setState({data:newData});
     }
 
     render(){
@@ -88,6 +126,8 @@ class ProductEdit extends React.Component{
                                 <input className="form-control"
                                         id='productName' 
                                         type="text"
+                                        value={this.state.data.productDetail.productName} 
+                                        onChange={this.onProductNameChange} 
                                         placeholder="Name (required)" />
                             </div>
 
@@ -95,7 +135,9 @@ class ProductEdit extends React.Component{
                                 <div className="col-md-6">
                                     <label className="control-label">Product Code</label>
                                     <input className="form-control" 
-                                            id="productCodeId" 
+                                            id="productCodeId"
+                                            value={this.state.data.productDetail.productCode} 
+                                            onChange={this.onProductCodeChange}  
                                             type="text" 
                                             placeholder="Code (required)" />
                                 </div>
@@ -105,6 +147,8 @@ class ProductEdit extends React.Component{
                                     <input className="form-control" 
                                             id="dateId" 
                                             type="date"
+                                            value={this.state.data.productDetail.releaseDate} 
+                                            onChange={this.onReleaseDateChange}  
                                             placeholder="Available" />
                                 </div>
                             </div>
@@ -115,6 +159,8 @@ class ProductEdit extends React.Component{
                                     <input className="form-control"
                                             id="priceId" 
                                             type="number"
+                                            value={this.state.data.productDetail.price} 
+                                            onChange={this.onPriceChange}  
                                             placeholder="Price" />
                                 </div>
 
@@ -125,7 +171,9 @@ class ProductEdit extends React.Component{
                                             type="number"
                                             min="1" 
                                             max="5"
-                                            step="1" 
+                                            step="1"
+                                            value={this.state.data.productDetail.starRating} 
+                                            onChange={this.onRatingChange}  
                                             placeholder="Rating" />
                                 </div>
                             </div>
@@ -135,6 +183,8 @@ class ProductEdit extends React.Component{
                                 <textarea className="form-control" 
                                         id="descriptionId" 
                                         placeholder="Description"
+                                        value={this.state.data.productDetail.description} 
+                                        onChange={this.onDescriptionChange}  
                                         rows="3"></textarea>
                             </div>
 
