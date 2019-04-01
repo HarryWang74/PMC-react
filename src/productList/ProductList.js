@@ -14,25 +14,46 @@ class ProductList extends React.Component{
   }
 
     componentDidMount() {
-        fetch("http://localhost:8888/products")
-            .then(res => res.json())
-            .then(
-                (data) => {
-                    this.setState({
-                        isLoading: false,
-                        data: {
-                            productList: data
-                        }
-                    });
-                    console.log(this.state);
-                },
-                (error) => {
-                    this.setState({
+        this.loadData();
+    }
+
+    loadData(){
+        fetch("http://localhost:3004/products")
+        .then(res => res.json())
+        .then(
+            (data) => {
+                this.setState({
                     isLoading: false,
-                    error,
-                    });
-                }
-            )
+                    data: {
+                        productList: data
+                    }
+                });
+                console.log(this.state);
+            },
+            (error) => {
+                this.setState({
+                isLoading: false,
+                error,
+                });
+            }
+        )
+    }
+
+    removeProduct(id){
+        fetch("http://localhost:3004/products/" + id, {method: 'DELETE'})
+        .then(res => res.json())
+        .then(
+            (data) => {
+                console.log(data);
+                this.loadData();
+            },
+            (error) => {
+                this.setState({
+                isLoading: false,
+                error,
+                });
+            }
+        )
     }
 
     render(){
@@ -80,7 +101,8 @@ class ProductList extends React.Component{
                                 <div className="col-md-3 text-right">
                                     <Link className="btn btn-primary btn-sm mr-1" to={`/details/${product.id}`}>View</Link>
                                     <Link className="btn btn-primary btn-sm mr-1" to={`/edit/${product.id}`}>Edit</Link>
-                                    <button type="button" className="btn btn-danger btn-sm">Delete</button>
+                                    <button type="button" className="btn btn-danger btn-sm"
+                                        onClick={this.removeProduct.bind(this, product.id)}>Delete</button>
                                 </div>
                             </div>
                         )
