@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 class ProductEdit extends React.Component{
     constructor(props) {
@@ -24,11 +24,15 @@ class ProductEdit extends React.Component{
     }
 
     componentDidMount() {
-        setTimeout(()=>{
-            fetch("/api/" + this.props.match.params.id + ".json")
+        this.loadData();
+    }
+    
+    loadData(){
+        fetch("http://localhost:3004/products/" + this.props.match.params.id)
             .then(res => res.json())
             .then(
                 (data) => {
+                    console.log(data);
                     this.setState({
                         isLoading: false,
                         data: {
@@ -44,12 +48,30 @@ class ProductEdit extends React.Component{
                     });
                 }
             )
-        }, 1000)
     }
-    
+
     save(event){
-        console.log(this.state);
         event.preventDefault()
+        fetch("http://localhost:3004/products/" + this.props.match.params.id, {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json",
+                // "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: JSON.stringify(this.state.data.productDetail)
+        }).then(
+                (data) => {
+                    console.log(data);
+                    this.props.history.push(`/`)
+                },
+                (error) => {
+                    this.setState({
+                    isLoading: false,
+                    error,
+                    });
+                }
+            )
+        
     }
 
     onProductImageChange(event){
@@ -198,7 +220,7 @@ class ProductEdit extends React.Component{
                             <div>
                                 <label className="control-label">Tags</label>
                                 <div className="form-group row" >
-                                {
+                                { 
                                     this.state.data.productDetail.tags.map(
                                         (tag, index)=>
                                             <div className="col-md-3" key={index}>
@@ -209,7 +231,6 @@ class ProductEdit extends React.Component{
                                                         placeholder="Tag" />
                                             </div>
                                     )
-                         
                                 }
                                 </div>
                             </div>
