@@ -20,7 +20,7 @@ class ProductEdit extends React.Component{
         this.onPriceChange = this.onPriceChange.bind(this);
         this.onRatingChange = this.onRatingChange.bind(this);
         this.onDescriptionChange = this.onDescriptionChange.bind(this);
-        // this.onTagChange = this.onTagChange.bind(this);
+        this.onAddTag = this.onAddTag.bind(this);
     }
 
     componentDidMount() {
@@ -71,7 +71,6 @@ class ProductEdit extends React.Component{
                     });
                 }
             )
-        
     }
 
     onProductImageChange(event){
@@ -119,6 +118,12 @@ class ProductEdit extends React.Component{
     onTagChange(index, event){
         let newData =  Object.assign({}, this.state.data);
         newData.productDetail.tags[index] = event.target.value;
+        this.setState({data:newData});
+    }
+
+    onAddTag(event){
+        let newData =  Object.assign({}, this.state.data);
+        newData.productDetail.tags.push("");
         this.setState({data:newData});
     }
 
@@ -223,7 +228,7 @@ class ProductEdit extends React.Component{
                                 { 
                                     this.state.data.productDetail.tags.map(
                                         (tag, index)=>
-                                            <div className="col-md-3" key={index}>
+                                            <div className="col-md-3 mb-3" key={index}>
                                                 <input className="form-control"
                                                         type="text"
                                                         value={tag}
@@ -237,6 +242,7 @@ class ProductEdit extends React.Component{
 
                             <div className="text-right">
                                 <button className="btn btn-primary btn-sm"
+                                        onClick={this.onAddTag}
                                         type="button">Add Tag
                                 </button>
                             </div>
