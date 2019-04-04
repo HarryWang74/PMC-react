@@ -110,7 +110,7 @@ class ProductList extends React.Component{
 
                     <div className="row pt-4">
                         <div className="col-md-12 text-right">
-                            <button type="button" className="btn btn-primary">Add product</button>
+                            <Link className="btn btn-primary btn-sm mr-1" to={`/edit/0`}>Add product</Link>
                         </div>
                     </div>      
                 </div>

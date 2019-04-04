@@ -24,7 +24,30 @@ class ProductEdit extends React.Component{
     }
 
     componentDidMount() {
-        this.loadData();
+        // load data 
+        if(this.props.match.params.id > 0){
+            this.loadData();
+        }
+
+        // init product 
+        if(Number(this.props.match.params.id)===0){
+            this.setState({
+                isLoading: false,
+                data: {
+                    productDetail: {
+                        "id": null,
+                        "productName": "",
+                        "productCode": "",
+                        "releaseDate": "",
+                        "description": "",
+                        "price": 0,
+                        "starRating": 0,
+                        "imageUrl": "",
+                        "tags": []
+                    }
+                }
+            });
+        }
     }
     
     loadData(){
@@ -51,15 +74,16 @@ class ProductEdit extends React.Component{
     }
 
     save(event){
-        event.preventDefault()
-        fetch("http://localhost:3004/products/" + this.props.match.params.id, {
-            method: 'PUT',
-            headers: {
-                "Content-Type": "application/json",
-                // "Content-Type": "application/x-www-form-urlencoded",
-            },
-            body: JSON.stringify(this.state.data.productDetail)
-        }).then(
+        event.preventDefault();
+        if(this.props.match.params.id > 0){
+            fetch("http://localhost:3004/products/" + this.props.match.params.id, {
+                method: 'PUT',
+                headers: {
+                    "Content-Type": "application/json",
+                    // "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: JSON.stringify(this.state.data.productDetail)
+            }).then(
                 (data) => {
                     console.log(data);
                     this.props.history.push(`/`)
@@ -71,6 +95,28 @@ class ProductEdit extends React.Component{
                     });
                 }
             )
+        }else{
+            fetch("http://localhost:3004/products/", {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    // "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: JSON.stringify(this.state.data.productDetail)
+            }).then(
+                (data) => {
+                    console.log(data);
+                    this.props.history.push(`/`)
+                },
+                (error) => {
+                    this.setState({
+                    isLoading: false,
+                    error,
+                    });
+                }
+            )
+        }
+        
     }
 
     onProductImageChange(event){
