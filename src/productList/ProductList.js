@@ -7,10 +7,11 @@ class ProductList extends React.Component{
     this.state = {
         error: null,
         isLoading: true,
-        data: {
-          productList:[]
-        }
+        initList:[],
+        productList:[]
     };
+
+    this.onSearchTextChange = this.onSearchTextChange.bind(this);
   }
 
     componentDidMount() {
@@ -24,9 +25,8 @@ class ProductList extends React.Component{
             (data) => {
                 this.setState({
                     isLoading: false,
-                    data: {
-                        productList: data
-                    }
+                    initList: data,
+                    productList: data
                 });
                 console.log(this.state);
             },
@@ -56,6 +56,17 @@ class ProductList extends React.Component{
         )
     }
 
+    onSearchTextChange(event){
+        var updatedList = this.state.initList;
+        // console.log(updatedList)
+        updatedList = updatedList.filter(function(item){
+            return item.productName.toLowerCase().search(
+              event.target.value.toLowerCase()) !== -1;
+          });
+        this.setState({productList:updatedList});
+        // console.log(this.state.productList);
+    }
+
     render(){
         if (this.state.error) {
             return <div>Error: {this.state.error.message}</div>;
@@ -74,7 +85,9 @@ class ProductList extends React.Component{
 
                     <div className="row mb-3 form-group">    
                         <div className="col-md-4">
-                            <input className="form-control" type="text" placeholder="Search" />
+                            <input className="form-control" 
+                                    type="text" placeholder="Search"
+                                    onChange={this.onSearchTextChange}  />
                         </div>
                     </div>
 
@@ -89,7 +102,7 @@ class ProductList extends React.Component{
                     </div>
 
                     {
-                        this.state.data.productList.map(
+                        this.state.productList.map(
                             (product)=>
                             <div key={product.id} className="row border-bottom pb-2 pt-2">
                                 <div className="col-md-2"><img className="img-fluid" src={product.imageUrl} /></div>
