@@ -33,18 +33,16 @@ class ProductEdit extends React.Component{
         if(Number(this.props.match.params.id)===0){
             this.setState({
                 isLoading: false,
-                data: {
-                    productDetail: {
-                        "id": null,
-                        "productName": "",
-                        "productCode": "",
-                        "releaseDate": "",
-                        "description": "",
-                        "price": 0,
-                        "starRating": 0,
-                        "imageUrl": "",
-                        "tags": []
-                    }
+                productDetail: {
+                    "id": null,
+                    "productName": "",
+                    "productCode": "",
+                    "releaseDate": "",
+                    "description": "",
+                    "price": 0,
+                    "starRating": 0,
+                    "imageUrl": "",
+                    "tags": []
                 }
             });
         }
@@ -58,9 +56,7 @@ class ProductEdit extends React.Component{
                     console.log(data);
                     this.setState({
                         isLoading: false,
-                        data: {
-                            productDetail: data
-                        }
+                        productDetail: data
                     });
                     console.log(this.state);
                 },
@@ -82,7 +78,7 @@ class ProductEdit extends React.Component{
                     "Content-Type": "application/json",
                     // "Content-Type": "application/x-www-form-urlencoded",
                 },
-                body: JSON.stringify(this.state.data.productDetail)
+                body: JSON.stringify(this.state.productDetail)
             }).then(
                 (data) => {
                     console.log(data);
@@ -102,7 +98,7 @@ class ProductEdit extends React.Component{
                     "Content-Type": "application/json",
                     // "Content-Type": "application/x-www-form-urlencoded",
                 },
-                body: JSON.stringify(this.state.data.productDetail)
+                body: JSON.stringify(this.state.productDetail)
             }).then(
                 (data) => {
                     console.log(data);
@@ -120,57 +116,57 @@ class ProductEdit extends React.Component{
     }
 
     onProductImageChange(event){
-        let newData =  Object.assign({}, this.state.data);
-        newData.productDetail.imageUrl = event.target.value;
-        this.setState({data:newData});
+        let newData =  Object.assign({}, this.state.productDetail);
+        newData.imageUrl = event.target.value;
+        this.setState({productDetail:newData});
     }
 
     onProductNameChange(event){
-        let newData =  Object.assign({}, this.state.data);
-        newData.productDetail.productName = event.target.value;
-        this.setState({data:newData});
+        let newData =  Object.assign({}, this.state.productDetail);
+        newData.productName = event.target.value;
+        this.setState({productDetail:newData});
     }
 
     onProductCodeChange(event){
-        let newData =  Object.assign({}, this.state.data);
-        newData.productDetail.productCode = event.target.value;
-        this.setState({data:newData});
+        let newData =  Object.assign({}, this.state.productDetail);
+        newData.productCode = event.target.value;
+        this.setState({productDetail:newData});
     }
 
     onReleaseDateChange(event){
-        let newData =  Object.assign({}, this.state.data);
-        newData.productDetail.releaseDate = event.target.value;
-        this.setState({data:newData});
+        let newData =  Object.assign({}, this.state.productDetail);
+        newData.releaseDate = event.target.value;
+        this.setState({productDetail:newData});
     }
 
     onPriceChange(event){
-        let newData =  Object.assign({}, this.state.data);
-        newData.productDetail.price = event.target.value;
-        this.setState({data:newData});
+        let newData =  Object.assign({}, this.state.productDetail);
+        newData.price = event.target.value;
+        this.setState({productDetail:newData});
     }
 
     onRatingChange(event){
-        let newData =  Object.assign({}, this.state.data);
-        newData.productDetail.starRating = event.target.value;
-        this.setState({data:newData});
+        let newData =  Object.assign({}, this.state.productDetail);
+        newData.starRating = event.target.value;
+        this.setState({productDetail:newData});
     }
 
     onDescriptionChange(event){
-        let newData =  Object.assign({}, this.state.data);
-        newData.productDetail.description = event.target.value;
-        this.setState({data:newData});
+        let newData =  Object.assign({}, this.state.productDetail);
+        newData.description = event.target.value;
+        this.setState({productDetail:newData});
     }
 
     onTagChange(index, event){
-        let newData =  Object.assign({}, this.state.data);
-        newData.productDetail.tags[index] = event.target.value;
-        this.setState({data:newData});
+        let newData =  Object.assign({}, this.state.productDetail);
+        newData.tags[index] = event.target.value;
+        this.setState({productDetail:newData});
     }
 
     onAddTag(event){
-        let newData =  Object.assign({}, this.state.data);
-        newData.productDetail.tags.push("");
-        this.setState({data:newData});
+        let newData =  Object.assign({}, this.state.productDetail);
+        newData.tags.push("");
+        this.setState({productDetail:newData});
     }
 
     render(){
@@ -195,7 +191,7 @@ class ProductEdit extends React.Component{
                                 <label className="control-label">Product Image</label>
                                     <input className="form-control" 
                                             id="imageUrl"
-                                            value={this.state.data.productDetail.imageUrl} 
+                                            value={this.state.productDetail.imageUrl} 
                                             onChange={this.onProductImageChange} 
                                             type="text" 
                                             placeholder="Image url"  />
@@ -206,7 +202,7 @@ class ProductEdit extends React.Component{
                                 <input className="form-control"
                                         id='productName' 
                                         type="text"
-                                        value={this.state.data.productDetail.productName} 
+                                        value={this.state.productDetail.productName} 
                                         onChange={this.onProductNameChange} 
                                         placeholder="Name (required)" />
                             </div>
@@ -216,7 +212,7 @@ class ProductEdit extends React.Component{
                                     <label className="control-label">Product Code</label>
                                     <input className="form-control" 
                                             id="productCodeId"
-                                            value={this.state.data.productDetail.productCode} 
+                                            value={this.state.productDetail.productCode} 
                                             onChange={this.onProductCodeChange}  
                                             type="text" 
                                             placeholder="Code (required)" />
@@ -227,7 +223,7 @@ class ProductEdit extends React.Component{
                                     <input className="form-control" 
                                             id="dateId" 
                                             type="date"
-                                            value={this.state.data.productDetail.releaseDate} 
+                                            value={this.state.productDetail.releaseDate} 
                                             onChange={this.onReleaseDateChange}  
                                             placeholder="Available" />
                                 </div>
@@ -239,7 +235,7 @@ class ProductEdit extends React.Component{
                                     <input className="form-control"
                                             id="priceId" 
                                             type="number"
-                                            value={this.state.data.productDetail.price} 
+                                            value={this.state.productDetail.price} 
                                             onChange={this.onDescriptionChange}  
                                             placeholder="Price" />
                                 </div>
@@ -252,7 +248,7 @@ class ProductEdit extends React.Component{
                                             min="1" 
                                             max="5"
                                             step="1"
-                                            value={this.state.data.productDetail.starRating} 
+                                            value={this.state.productDetail.starRating} 
                                             onChange={this.onRatingChange}  
                                             placeholder="Rating" />
                                 </div>
@@ -263,7 +259,7 @@ class ProductEdit extends React.Component{
                                 <textarea className="form-control" 
                                         id="descriptionId" 
                                         placeholder="Description"
-                                        value={this.state.data.productDetail.description} 
+                                        value={this.state.productDetail.description} 
                                         onChange={this.onDescriptionChange}  
                                         rows="3"></textarea>
                             </div>
@@ -272,7 +268,7 @@ class ProductEdit extends React.Component{
                                 <label className="control-label">Tags</label>
                                 <div className="form-group row" >
                                 { 
-                                    this.state.data.productDetail.tags.map(
+                                    this.state.productDetail.tags.map(
                                         (tag, index)=>
                                             <div className="col-md-3 mb-3" key={index}>
                                                 <input className="form-control"
