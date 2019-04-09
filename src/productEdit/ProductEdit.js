@@ -186,7 +186,7 @@ class ProductEdit extends React.Component{
             return (
                 <div>
                     <div className="row mb-3 mt-3">
-                        <h1 className="col-md-12">Edit product</h1>
+                        <h1 className="col-md-12">{this.props.match.params.id > 0 ? 'Edit product' : 'Create product'}</h1>
                     </div>
 
                     <form className="form-horizontal" onSubmit={this.save}>
