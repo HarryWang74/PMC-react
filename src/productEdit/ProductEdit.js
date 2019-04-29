@@ -92,9 +92,7 @@ class ProductEdit extends React.Component{
                     return errors;
                 }}
                 onSubmit={(values, { setSubmitting }) => {
-                    console.log(values);
-                    debugger;
-
+                    console.log('sending', values);
                     if(this.props.match.params.id > 0){
                         fetch("http://localhost:3004/products/" + this.props.match.params.id, {
                             method: 'PUT',
@@ -242,17 +240,27 @@ class ProductEdit extends React.Component{
                                         values.tags.map(
                                             (tag, index)=>
                                                 <div className="col-md-3 mb-3" key={index}>
-                                                    <Field name={`tags.${index}`}></Field>
-                                                    <button
-                                                        type="button"
-                                                        onClick={() => arrayHelpers.remove(index)}>-</button>
-                                                    <button
-                                                        type="button"
-                                                        onClick={() => arrayHelpers.insert(index, '')}>+</button>
+                                                    <Field 
+                                                        name={`tags.${index}`}
+                                                        render={({ field }) => (
+                                                            <div className="input-group">
+                                                                <input  className="form-control" {...field}  />
+                                                                <div className="input-group-append">
+                                                                    <button 
+                                                                        className="btn btn-outline-secondary"
+                                                                        onClick={() => arrayHelpers.remove(index)}
+                                                                        type="button">-</button>
+                                                                    <button 
+                                                                        className="btn btn-outline-secondary"
+                                                                        onClick={() => arrayHelpers.insert(index, '')}
+                                                                        type="button">+</button>
+                                                                </div>
+                                                            </div>
+                                                        )}/>
                                                 </div>
                                         )
                                     ):(
-                                        <div className="text-right">
+                                        <div className="col-md-12 text-right">
                                         <button className="btn btn-primary btn-sm"
                                                 onClick={() => arrayHelpers.push('')}
                                                 type="button">Add Tag
