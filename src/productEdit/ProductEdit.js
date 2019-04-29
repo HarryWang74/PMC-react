@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, Redirect } from "react-router-dom";
-import { Formik } from 'formik';
+import { Formik, Form, Field, FieldArray } from 'formik';
 
 class ProductEdit extends React.Component{
     constructor(props) {
@@ -70,7 +70,9 @@ class ProductEdit extends React.Component{
             return (
                 <div>
         <div className="row mb-3 mt-3">
+            {/* 
             <h1 className="col-md-12">{this.props.match.params.id > 0 ? 'Edit product' : 'Create product'}</h1>
+            */}
         </div>
         <Formik initialValues={{ 
                     productName: this.state.productDetail.productName,
@@ -90,6 +92,9 @@ class ProductEdit extends React.Component{
                     return errors;
                 }}
                 onSubmit={(values, { setSubmitting }) => {
+                    console.log(values);
+                    debugger;
+
                     if(this.props.match.params.id > 0){
                         fetch("http://localhost:3004/products/" + this.props.match.params.id, {
                             method: 'PUT',
@@ -234,13 +239,8 @@ class ProductEdit extends React.Component{
                             values.tags.map(
                                 (tag, index)=>
                                     <div className="col-md-3 mb-3" key={index}>
-                                        <input className="form-control"
-                                                type="text"
-                                                name={index}
-                                                onChange={handleChange}     
-                                                onBlur={handleBlur}
-                                                value={tag}
-                                                placeholder="Tag" />
+                                        <Field name={`tags.${index}`}>
+                                        </Field>
                                     </div>
                             )
                         }
