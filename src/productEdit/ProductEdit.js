@@ -238,26 +238,31 @@ class ProductEdit extends React.Component{
                             <FieldArray 
                                 name="tags"
                                 render={arrayHelpers => (
-                                values.tags.map(
-                                    (tag, index)=>
-                                        <div className="col-md-3 mb-3" key={index}>
-                                            <Field name={`tags.${index}`}></Field>
-                                            <button
-                                                type="button"
-                                                onClick={() => arrayHelpers.remove(index)}>-</button>
-                                            <button
-                                                type="button"
-                                                onClick={() => arrayHelpers.insert(index, '')}>+</button>
+                                    values.tags && values.tags.length > 0 ? (
+                                        values.tags.map(
+                                            (tag, index)=>
+                                                <div className="col-md-3 mb-3" key={index}>
+                                                    <Field name={`tags.${index}`}></Field>
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => arrayHelpers.remove(index)}>-</button>
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => arrayHelpers.insert(index, '')}>+</button>
+                                                </div>
+                                        )
+                                    ):(
+                                        <div className="text-right">
+                                        <button className="btn btn-primary btn-sm"
+                                                onClick={() => arrayHelpers.push('')}
+                                                type="button">Add Tag
+                                        </button>
                                         </div>
-                                ))} /> 
+                                    )
+                                )} /> 
                         </div>
                     </div>
-                    <div className="text-right">
-                        <button className="btn btn-primary btn-sm"
-                                onClick={this.onAddTag}
-                                type="button">Add Tag
-                        </button>
-                    </div>
+      
                     <hr />
                     <div className="pt-4 text-right">
                         <Link className="btn btn-danger mr-3" to={`/`}>Cancel</Link>
