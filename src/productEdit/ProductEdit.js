@@ -70,9 +70,7 @@ class ProductEdit extends React.Component{
             return (
                 <div>
         <div className="row mb-3 mt-3">
-            {/* 
             <h1 className="col-md-12">{this.props.match.params.id > 0 ? 'Edit product' : 'Create product'}</h1>
-            */}
         </div>
         <Formik initialValues={{ 
                     productName: this.state.productDetail.productName,
@@ -169,7 +167,12 @@ class ProductEdit extends React.Component{
                             placeholder="Name (required)"
                             onBlur={handleBlur}
                             value={values.productName}/>
-                        {errors.productName && touched.productName && errors.productName}
+                        {
+                            errors.productName && touched.productName && errors.productName && 
+                            <div className="alert alert-danger mt-3" role="alert">
+                                {errors.productName && touched.productName && errors.productName}
+                            </div>
+                        }
                     </div>
                     <div className="form-group row">
                         <div className="col-md-6">
